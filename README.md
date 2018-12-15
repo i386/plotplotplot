@@ -27,7 +27,7 @@ void loop() {
   int currentPosition = random(0, 255);  
   Serial.print("\031Position\031");
   Serial.println(currentPosition);
-  
+
   delay(1000);
 }
 ```
@@ -39,3 +39,5 @@ Results the following printed to the serial port:
 Position44
 Temp22.00
 ```
+
+![Demo](https://raw.githubusercontent.com/i386/plotplotplot/master/demo.gif)
