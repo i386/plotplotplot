@@ -50,14 +50,16 @@ class SerialService {
     // Start parsing data
     this._port.pipe(parser)
     parser.on('data', line => {
+      let timestamp = new Date().getTime();
       if (line.charCodeAt(0) == 25) {
         let event = {
           key: extractKey(line),
-          value: extractValue(line)
+          value: extractValue(line),
+          timestamp: timestamp
         }
         Events.emit("serialPlotMessageRecieved", event)
       } else {
-        Events.emit("serialStringMessageRecieved", {line: line})
+        Events.emit("serialStringMessageRecieved", {line: line, timestamp: timestamp})
       }
     })
   }

@@ -28,6 +28,7 @@ class App extends Component {
   componentDidMount() {
     let that = this;
     Events.on('plotsUpdated', (plots) => {
+      console.log(plots)
       that.setState({plots: plots})
     });
   }
