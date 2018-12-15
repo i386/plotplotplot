@@ -8,8 +8,8 @@ import {Line} from 'react-chartjs-2';
 
 const styles = {
   card: {
-    width: '500',
-    height: '500'
+    width: '100%',
+    height: '100%',
   }
 }
 
@@ -37,40 +37,36 @@ class Plot extends React.Component {
 
     let options = {
       responsive: true,
-				title: {
+			title: {
+				display: false
+			},
+      legend: {
+           display: false
+      },
+			scales: {
+				xAxes: [{
+					type: 'time',
 					display: true,
-					text: 'Chart.js Time Point Data'
-				},
-				scales: {
-					xAxes: [{
-						type: 'time',
+					scaleLabel: {
 						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Date'
-						},
-						ticks: {
-							major: {
-								fontStyle: 'bold',
-								fontColor: '#FF0000'
-							}
-						}
-					}],
-					yAxes: [{
+						labelString: 'Timestamp'
+					},
+				}],
+				yAxes: [{
+					display: true,
+					scaleLabel: {
 						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'value'
-						}
-					}]
-				}
+						labelString: 'value'
+					}
+				}]
+			}
     }
 
     return (
-      <Card className={classes}>
+      <Card style={styles.card} className={classes}>
         <CardContent>
           <Typography variant="h5" component="h2">{this.props.plot.name}</Typography>
-          <Line height={400} width={500} data={data} options={options}/>
+          <Line data={data} options={options}/>
         </CardContent>
       </Card>
     )
@@ -83,7 +79,7 @@ class Plots extends React.Component {
     let charts = []
     for (var i = 0; i < this.props.plots.length; i++) {
       charts.push((
-        <Grid key={i} item>
+        <Grid style={styles.card}  key={i} item>
           <Plot classes={classes} plot={this.props.plots[i]}/>
         </Grid>
       ))

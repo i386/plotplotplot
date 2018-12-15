@@ -20,9 +20,14 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  Serial.println("\031Temp\03122.00");
-  Serial.println("\031Position\03144");
+  int currentTemp = random(22, 45);
+  Serial.print("\031Temp\031");
+  Serial.println(currentTemp);
+
+  int currentPosition = random(0, 255);  
+  Serial.print("\031Position\031");
+  Serial.println(currentPosition);
+  
   delay(1000);
 }
 ```
