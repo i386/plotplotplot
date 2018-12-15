@@ -40,4 +40,6 @@ Results the following printed to the serial port:
 Temp22.00
 ```
 
+# Output
+
 ![Demo](https://raw.githubusercontent.com/i386/plotplotplot/master/demo.gif)
