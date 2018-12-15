@@ -4,36 +4,57 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
+import Events from '../events';
 
-const serialPort = require('serialport');
-// import serialPort from 'serialport'
-const SerialPort = serialPort.SerialPort;
+const styles = {
+  width: {
+    width: "300px"
+  }
+};
 
 class SerialPortSelector extends Component {
 
   listSerialDevices() {
-    var allPorts = null;
-    serialPort.list(function (err, ports) {
-      allPorts = ports;
+    return new Promise((resolve, reject) => {
+      window.serialport.list(function (err, ports) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(ports);
+        }
+      });
     });
-    return allPorts;
   }
 
   componentDidMount() {
-    const ports = this.listSerialDevices();
-    const state = {
-      "ports": ports,
-      "currentPort": ""
-    }
-    this.setState(state)
+    let that = this;
+    this.listSerialDevices().then((ports) => {
+      console.log(ports)
+      const state = {
+        "ports": ports,
+        "currentPort": ""
+      }
+      that.setState(state)
+    }).catch((error) => {
+      alert("Could not list serial ports");
+    })
   }
 
-  serialPortChanged() {
-    console.log("TODO: update serial port")
-  }
+  handleChange = event => {
+    this.setState({ currentPort: event.target.value });
+    let serial_port = this.state.ports[event.target.value];
+    if (serial_port) {
+      Events.emit('serialPortSelected', serial_port)
+    }
+  };
 
   render() {
+    const { classes } = this.props;
+    if (!this.state || !this.state.ports) {
+      return null;
+    }
 
     const menuItems = [];
     menuItems.push((
@@ -41,18 +62,35 @@ class SerialPortSelector extends Component {
         <em>None</em>
       </MenuItem>
     ))
-    for (const port in this.state.ports) {
+
+    for (const portId in Object.keys(this.state.ports)) {
+      let port = this.state.ports[portId];
+      let comName = port.comName;
+      let manufacturer = port.manufacturer ? port.manufacturer : "Unknown";
       menuItems.push((
-        <MenuItem value={port.pnpId}>{port.comName}</MenuItem>
+        <MenuItem value={portId}>
+          <ListItemText
+              primary={comName}
+              secondary={manufacturer}
+            />
+        </MenuItem>
       ))
     }
 
     return (
-      <Select value="" onChange={this.serialPortChanged}>
+      <Select
+        value={this.state.currentPort}
+        onChange={this.handleChange}
+        inputProps={{
+          name: 'serialPort',
+          id: 'serial-port-select'
+        }}
+        className={classes.width}
+        >
         {menuItems}
       </Select>
     )
   }
 }
 
-export default SerialPortSelector;
+export default withStyles(styles)(SerialPortSelector);

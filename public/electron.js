@@ -14,6 +14,7 @@ createWindow = () => {
 		titleBarStyle: 'default',
 		webPreferences: {
 			nodeIntegration: false,
+			nodeIntegrationInWorker: false,
 			preload: __dirname + '/preload.js',
 		},
 		height: 860,
