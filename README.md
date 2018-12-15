@@ -14,8 +14,7 @@ Anything else written to the console is considered diagnostic log and will not b
 # Example
 Using the following Arduino sketch:
 ```
-void setup() {
-  // put your setup code here, to run once:
+void setup() 
   Serial.begin(9600);
 }
 
