@@ -1,6 +1,6 @@
 # PlotPlotPlot
 
-A simple multi-channel serial plot tool for Arduino
+A simple multi-value serial plot tool for Arduino. Print readings for all your sensors to the serial console and automatically receive a plot graph for each sensor.
 
 # Download
 
