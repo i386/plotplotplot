@@ -2,6 +2,10 @@
 
 A simple multi-channel serial plot tool for Arduino
 
+# Download
+
+[Download the latest release](https://github.com/i386/plotplotplot/releases)
+
 # Format
 
 The format is very simple:
