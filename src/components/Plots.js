@@ -8,15 +8,17 @@ import {Line} from 'react-chartjs-2';
 
 const styles = {
   card: {
-    width: '20%',
-    height: '20%'
+    width: '500',
+    height: '500'
   }
 }
 
 class Plot extends React.Component {
   render() {
     const { classes } = this.props;
-    let allPoints = this.props.plot.points.map((point) => point.value)
+    let allPoints = this.props.plot.points.map((point) => {
+      return {x: point.timestamp, y: point.value}
+    })
     let data = {
       datasets: [
         {
@@ -35,13 +37,40 @@ class Plot extends React.Component {
 
     let options = {
       responsive: true,
+				title: {
+					display: true,
+					text: 'Chart.js Time Point Data'
+				},
+				scales: {
+					xAxes: [{
+						type: 'time',
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Date'
+						},
+						ticks: {
+							major: {
+								fontStyle: 'bold',
+								fontColor: '#FF0000'
+							}
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'value'
+						}
+					}]
+				}
     }
 
     return (
       <Card className={classes}>
         <CardContent>
           <Typography variant="h5" component="h2">{this.props.plot.name}</Typography>
-          <Line data={data} options={options}/>
+          <Line height={400} width={500} data={data} options={options}/>
         </CardContent>
       </Card>
     )
