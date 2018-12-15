@@ -6,7 +6,10 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import './App.css';
+
 import SerialPortSelector from './components/SerialPortSelector'
+import Plots from './components/Plots'
+
 import Events from './events'
 import SerialService from './services/SerialService'
 import PlotService from './services/PlotService'
@@ -28,23 +31,24 @@ class App extends Component {
   componentDidMount() {
     let that = this;
     Events.on('plotsUpdated', (plots) => {
-      console.log(plots)
       that.setState({plots: plots})
     });
   }
 
   render() {
     const { classes } = this.props;
+    let plots = this.state && this.state.plots ? (<Plots plots={this.state.plots}/>) : null
     return (
       <div className={classes.root}>
-      <AppBar position="static" color="inherit">
-        <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            PlotPlotPlot
-          </Typography>
-          <SerialPortSelector/>
-        </Toolbar>
-      </AppBar>
+        <AppBar position="static" color="inherit">
+          <Toolbar>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              PlotPlotPlot
+            </Typography>
+            <SerialPortSelector/>
+          </Toolbar>
+        </AppBar>
+        {plots}
       </div>
     );
   }

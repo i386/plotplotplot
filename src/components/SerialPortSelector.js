@@ -31,7 +31,6 @@ class SerialPortSelector extends Component {
   componentDidMount() {
     let that = this;
     this.listSerialDevices().then((ports) => {
-      console.log(ports)
       const state = {
         "ports": ports,
         "currentPort": ""
@@ -68,7 +67,7 @@ class SerialPortSelector extends Component {
       let comName = port.comName;
       let manufacturer = port.manufacturer ? port.manufacturer : "Unknown";
       menuItems.push((
-        <MenuItem value={portId}>
+        <MenuItem key={portId} value={portId}>
           <ListItemText
               primary={comName}
               secondary={manufacturer}

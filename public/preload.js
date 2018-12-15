@@ -7,6 +7,5 @@ const serialport = require('serialport');
 init();
 
 function init() {
-  console.log("preloading")
   window.serialport = serialport;
 }

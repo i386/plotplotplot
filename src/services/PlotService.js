@@ -23,7 +23,6 @@ class PlotService {
   }
 
   handleSerialPlotMessageReceived = (plotPoint) => {
-    console.log(plotPoint)
     // Create if does not exist
     if (!plots[plotPoint.key]) {
       plots[plotPoint.key] = new Plot(plotPoint.key)
@@ -31,7 +30,7 @@ class PlotService {
     let currentPlot = plots[plotPoint.key]
     currentPlot.points.push(plotPoint)
     // Let subscribers know we've updated state
-    Events.emit('plotsUpdated', plots)
+    Events.emit('plotsUpdated', Object.values(plots))
   }
 
   handleSerialStringMessageRecieved = (message) => {
