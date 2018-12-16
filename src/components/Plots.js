@@ -16,7 +16,7 @@ const styles = {
 class Plot extends React.Component {
   render() {
     const { classes } = this.props;
-    let allPoints = this.props.plot.points.map((point) => {
+    let allPoints = this.props.plot.points.slice(-100).map((point) => {
       return {x: point.timestamp, y: point.value}
     })
     let data = {
@@ -41,7 +41,10 @@ class Plot extends React.Component {
 				display: false
 			},
       legend: {
-           display: false
+        display: false
+      },
+      animation:{
+        duration: 0
       },
 			scales: {
 				xAxes: [{

@@ -37,7 +37,7 @@ class SerialPortSelector extends Component {
       }
       that.setState(state)
     }).catch((error) => {
-      alert("Could not list serial ports");
+      alert("Could not list serial ports " + error);
     })
   }
 
