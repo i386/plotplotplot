@@ -23,8 +23,8 @@ class Plot extends React.Component {
     let values = allPoints.map((p) => Number(p.y))
     let sum = values.reduce((previous, current) => current += previous)
     let avg = (sum / values.length).toFixed(2)
-    let min = Math.min(...values)
-    let max = Math.max(...values)
+    let min = Math.min(...values).toFixed(2)
+    let max = Math.max(...values).toFixed(2)
 
     let data = {
       datasets: [
