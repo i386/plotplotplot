@@ -13,9 +13,8 @@ class Plot {
 
   addPoint(point) {
     this.points.push(point)
-    let values = this.points.map((p) => p.value)
     this.sum = this.sum + point.value
-    this.avg = (this.sum / values.length).toFixed(2)
+    this.avg = (this.sum / this.points.length).toFixed(2)
     if (!this.min || point.value < this.min) {
       this.min = point.value
     }

@@ -50,6 +50,7 @@ class SerialService {
     // Start parsing data
     this._port.pipe(parser)
     parser.on('data', line => {
+      // TODO: check that we didn't recieve half a line
       let timestamp = new Date().getTime();
       if (line.charCodeAt(0) == 25) {
         let event = {
