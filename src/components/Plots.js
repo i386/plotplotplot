@@ -20,12 +20,6 @@ class Plot extends React.Component {
       return {x: point.timestamp, y: point.value}
     })
 
-    let values = allPoints.map((p) => Number(p.y))
-    let sum = values.reduce((previous, current) => current += previous)
-    let avg = (sum / values.length).toFixed(2)
-    let min = Math.min(...values).toFixed(2)
-    let max = Math.max(...values).toFixed(2)
-
     let data = {
       datasets: [
         {
@@ -76,7 +70,7 @@ class Plot extends React.Component {
       <Card style={styles.card} className={classes}>
         <CardContent>
           <Typography variant="h5" component="h2">{this.props.plot.name}</Typography>
-          <Typography component="h6">Average: {avg} Min: {min} Max: {max}</Typography>
+          <Typography component="h6">Average: {this.props.plot.avg} Min: {this.props.plot.min} Max: {this.props.plot.max}</Typography>
           <Line data={data} options={options}/>
         </CardContent>
       </Card>

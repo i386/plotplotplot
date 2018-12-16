@@ -32,7 +32,7 @@ function extractValue(line) {
       chars.push(line.charAt(i))
     }
   }
-  return chars.join('')
+  return Number(chars.join(''))
 }
 
 class SerialService {
